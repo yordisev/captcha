@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            Captcha();
+            $("#enviar").attr("disabled", "disabled");
+            var ran1=0;
+            var ran2=0;
+            var rant=0;
+            ran1=Math.floor(Math.random()*10);
+            ran2=Math.floor(Math.random()*10);
+            rant = ran1+ran2;
+            $("#resolver").text("Cuanto es "+ran1+" + "+ran2);
+            $("#respuesta").keyup(function(e){
+                var nr = $(this).val();
+                if (nr==rant){
+                    $("#enviar").removeAttr("disabled");
+                } else {
+                    $("#enviar").attr("disabled", "disabled");
+                }
+            });
+
+            $("#enviar").click(function(){
+                $("#form1").submit();
+            })
+
+
+        })
+        function Captcha() {
+try {
+    var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+        'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+        'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+    var i;
+    for (i = 0; i < 6; i++) {
+        var a = alpha[Math.floor(Math.random() * alpha.length)];
+        var b = alpha[Math.floor(Math.random() * alpha.length)];
+        var c = alpha[Math.floor(Math.random() * alpha.length)];
+        var d = alpha[Math.floor(Math.random() * alpha.length)];
+        var e = alpha[Math.floor(Math.random() * alpha.length)];
+        var f = alpha[Math.floor(Math.random() * alpha.length)];
+        var g = alpha[Math.floor(Math.random() * alpha.length)];
+    }
+    var code = a + ' ' + b + ' ' + ' ' + c + ' ' + d + ' ' + e + ' ' + f + ' ' + g;
+    console.log(code);
+    document.getElementById("micaptcha").value = code;
+    $("#micaptcha").text(code);
+} catch (error) { console.log(error); }
+}
+    </script>
+</head>
+<body>
+    <form action="www.google.com" method="post" id="form1">
+        <label id="resolver"></label>
+        <br>
+        <label id="micaptcha"></label>
+        <input type="text" id="respuesta">
+        <button id="enviar">Enviar</button>
+    </form>
+</body>
+</html>
